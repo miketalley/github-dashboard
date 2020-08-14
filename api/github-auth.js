@@ -1,12 +1,15 @@
-const request = require("request");
-const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
+const {
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  GITHUB_STATE,
+  GITHUB_REDIRECT_URI,
+} = process.env;
 const ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
 
 module.exports = (req, res) => {
-  // request.post(ACCESS_TOKEN_URL)
-  res.json({
-    body: req.body,
-    query: req.query,
-    cookies: req.cookies,
-  });
+  const { code } = req.query;
+  const QUERY_STRING = `?code=${code}&client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&state=${GITHUB_STATE}&redirect_uri=${GITHUB_REDIRECT_URI}`;
+
+  res.set(`location`, `${ACCESS_TOKEN_URL}${QUERY_STRING}`);
+  res.status(301).send();
 };
