@@ -95,7 +95,7 @@ export default {
   },
   data: () => {
     return {
-      githubUrl: encodeURI("https://github.com/login/oauth/authorize?client_id=df670c62ecc7dc046253&redirect_uri=https://github-dashboard.miketalley.vercel.app/github-auth-callback&scope=user&state=foobar")
+      githubUrl: encodeURI("https://github.com/login/oauth/authorize?client_id=df670c62ecc7dc046253&redirect_uri=https://github-dashboard.miketalley.vercel.app/github-auth&scope=user&state=foobar")
     }
   }
 };
