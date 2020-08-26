@@ -17,6 +17,8 @@ module.exports = (req, res) => {
   let scope;
   let token_type;
   let access_token_response;
+  let access_token_error;
+  let access_token_body;
 
   request.post(
     {
@@ -31,7 +33,9 @@ module.exports = (req, res) => {
       redirect_uri: GITHUB_REDIRECT_URI,
     },
     (error, response, body) => {
-      access_token_response = body;
+      access_token_error = error;
+      access_token_response = response;
+      access_token_body = body;
       console.log("Resp: ", response, body);
       access_token = response.access_token;
       scope = response.scope;
@@ -41,8 +45,10 @@ module.exports = (req, res) => {
 
   res.writeHead(302, {
     // Location: `${redirectUrl}?access_token=${access_token}&scope=${scope}&token_type=${token_type}`,
-    Location: `${redirectUrl}?access_token=${JSON.stringify(
-      access_token_response
+    Location: `${redirectUrl}?error=${JSON.stringify(
+      access_token_error
+    )}&response=${JSON.stringify(access_token_response)}&body=${JSON.stringify(
+      access_token_body
     )}`,
   });
 
