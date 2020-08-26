@@ -11,7 +11,8 @@ module.exports = (req, res) => {
   const { code } = req.query;
   // const queryString = `?code=${code}&client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&state=${GITHUB_STATE}&redirect_uri=${GITHUB_REDIRECT_URI}`;
   // const redirectUrl = `${ACCESS_TOKEN_URL}${queryString}`;
-  let redirectUrl = "https://github.com/foobar";
+  let redirectUrl =
+    "https://github-dashboard.miketalley.vercel.app/github-access-token-return";
   let access_token;
   let scope;
   let token_type;
