@@ -40,17 +40,17 @@ module.exports = (req, res) => {
       access_token = response.access_token;
       scope = response.scope;
       token_type = response.token_type;
+
+      res.writeHead(302, {
+        // Location: `${redirectUrl}?access_token=${access_token}&scope=${scope}&token_type=${token_type}`,
+        Location: `${redirectUrl}?error=${JSON.stringify(
+          access_token_error
+        )}&response=${JSON.stringify(
+          access_token_response
+        )}&body=${JSON.stringify(access_token_body)}`,
+      });
+
+      res.end();
     }
   );
-
-  res.writeHead(302, {
-    // Location: `${redirectUrl}?access_token=${access_token}&scope=${scope}&token_type=${token_type}`,
-    Location: `${redirectUrl}?error=${JSON.stringify(
-      access_token_error
-    )}&response=${JSON.stringify(access_token_response)}&body=${JSON.stringify(
-      access_token_body
-    )}`,
-  });
-
-  res.end();
 };
