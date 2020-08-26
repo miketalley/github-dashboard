@@ -7,6 +7,7 @@
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
         >vue-cli documentation</a
       >.
+      <a :href="githubUrl">Auth with Github</a>
     </p>
     <h3>Installed CLI Plugins</h3>
     <ul>
@@ -91,6 +92,11 @@ export default {
   name: "HelloWorld",
   props: {
     msg: String
+  },
+  data: () => {
+    return {
+      githubUrl: encodeURI("https://github.com/login/oauth/authorize?client_id=df670c62ecc7dc046253&redirect_uri=https://github-dashboard.miketalley.vercel.app&scope=user&state=foobar")
+    }
   }
 };
 </script>
