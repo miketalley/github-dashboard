@@ -31,7 +31,7 @@ module.exports = (req, res) => {
       redirect_uri: GITHUB_REDIRECT_URI,
     },
     (error, response, body) => {
-      access_token_response = response;
+      access_token_response = body;
       console.log("Resp: ", response, body);
       access_token = response.access_token;
       scope = response.scope;
