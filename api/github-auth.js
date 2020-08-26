@@ -5,12 +5,12 @@ const {
   GITHUB_STATE,
   GITHUB_REDIRECT_URI,
 } = process.env;
-const ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
+const ACCESS_TOKEN_BASE_URL = "https://github.com/login/oauth/access_token";
 
 module.exports = (req, res) => {
   const { code } = req.query;
-  // const queryString = `?code=${code}&client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&state=${GITHUB_STATE}&redirect_uri=${GITHUB_REDIRECT_URI}`;
-  // const redirectUrl = `${ACCESS_TOKEN_URL}${queryString}`;
+  const queryString = `?code=${code}&client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&state=${GITHUB_STATE}&redirect_uri=${GITHUB_REDIRECT_URI}`;
+  const accessTokenUrl = `${ACCESS_TOKEN_BASE_URL}${queryString}`;
   let redirectUrl =
     "https://github-dashboard.miketalley.vercel.app/github-access-token-return";
   let access_token;
@@ -22,7 +22,7 @@ module.exports = (req, res) => {
 
   request.post(
     {
-      url: ACCESS_TOKEN_URL,
+      url: accessTokenUrl,
       headers: {
         Accept: "application/json",
       },
