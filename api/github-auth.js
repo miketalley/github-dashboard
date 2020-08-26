@@ -13,12 +13,6 @@ module.exports = (req, res) => {
   const accessTokenUrl = `${ACCESS_TOKEN_BASE_URL}${queryString}`;
   let redirectUrl =
     "https://github-dashboard.miketalley.vercel.app/github-access-token-return";
-  let access_token;
-  let scope;
-  let token_type;
-  let access_token_response;
-  let access_token_error;
-  let access_token_body;
 
   request.post(
     {
@@ -26,28 +20,12 @@ module.exports = (req, res) => {
       headers: {
         Accept: "application/json",
       },
-      client_id: GITHUB_CLIENT_ID,
-      client_secret: GITHUB_CLIENT_SECRET,
-      code,
-      state: GITHUB_STATE,
-      redirect_uri: GITHUB_REDIRECT_URI,
     },
     (error, response, body) => {
-      access_token_error = error;
-      access_token_response = response;
-      access_token_body = body;
-      console.log("Resp: ", response, body);
-      access_token = response.access_token;
-      scope = response.scope;
-      token_type = response.token_type;
+      const { access_token, scope, token_type } = body;
 
       res.writeHead(302, {
-        // Location: `${redirectUrl}?access_token=${access_token}&scope=${scope}&token_type=${token_type}`,
-        Location: `${redirectUrl}?error=${JSON.stringify(
-          access_token_error
-        )}&response=${JSON.stringify(
-          access_token_response
-        )}&body=${JSON.stringify(access_token_body)}`,
+        Location: `${redirectUrl}?access_token=${access_token}&scope=${scope}&token_type=${token_type}&error=${error}`,
       });
 
       res.end();
