@@ -22,7 +22,7 @@ module.exports = (req, res) => {
       },
     },
     (error, response, body) => {
-      const { access_token, scope, token_type } = body;
+      const { access_token, scope, token_type } = JSON.parse(body);
 
       res.writeHead(302, {
         Location: `${redirectUrl}?access_token=${access_token}&scope=${scope}&token_type=${token_type}&error=${error}`,
